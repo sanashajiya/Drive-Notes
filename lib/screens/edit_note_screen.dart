@@ -103,7 +103,7 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
                 children: [
                   // Timestamp + char count
                   Text(
-                    '$timestamp  •  ${_contentController.text.length} characters',
+                    '$timestamp',
                     style: TextStyle(color: Colors.grey[600], fontSize: 13),
                   ),
                   const SizedBox(height: 12),
