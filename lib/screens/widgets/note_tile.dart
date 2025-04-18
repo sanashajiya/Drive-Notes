@@ -18,7 +18,7 @@ class NoteTile extends ConsumerWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: ListTile(
-        leading: const Icon(Icons.description, color: Colors.blueAccent),
+        leading: const Icon(Icons.description, color: Color.fromARGB(255, 152, 110, 230)),
         title: Text(
           file.name.endsWith('.txt')
               ? file.name.replaceAll(RegExp(r'\.txt$'), '')

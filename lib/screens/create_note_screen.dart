@@ -42,25 +42,27 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final now = DateTime.now();
     final weekday = _formatWeekday(now);
     final date = _formatDate(now);
     final time = _formatTime(now);
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: theme.colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: theme.colorScheme.surface,
+        surfaceTintColor: theme.colorScheme.surface,
         elevation: 1,
-        foregroundColor: Colors.black87,
+        foregroundColor: theme.colorScheme.onSurface,
         leading: const BackButton(),
         actions: [
           IconButton(
             key: const Key('saveButton'),
             icon: const Icon(Icons.check_rounded),
             onPressed: _isSaving ? null : _saveNote,
-            color: Theme.of(context).primaryColor,
+            color: theme.colorScheme.primary,
           ),
         ],
       ),
@@ -68,14 +70,15 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
         margin: const EdgeInsets.all(16),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
+            if (!isDark)
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
           ],
         ),
         child: Column(
@@ -87,11 +90,11 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
               children: [
                 Text(
                   '$date, $weekday',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey[600]),
+                  style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.6)),
                 ),
                 Text(
                   time,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey[600]),
+                  style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.6)),
                 ),
               ],
             ),
@@ -101,7 +104,7 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
             TextField(
               key: const Key('titleField'),
               controller: _titleController,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+              style: theme.textTheme.headlineSmall,
               decoration: const InputDecoration(
                 hintText: 'Title',
                 border: InputBorder.none,
@@ -118,7 +121,7 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
                 maxLines: null,
                 expands: true,
                 keyboardType: TextInputType.multiline,
-                style: const TextStyle(fontSize: 16, height: 1.5),
+                style: theme.textTheme.bodyLarge?.copyWith(height: 1.5),
                 decoration: const InputDecoration(
                   hintText: 'Start typing your note...',
                   border: InputBorder.none,

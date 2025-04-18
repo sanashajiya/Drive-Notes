@@ -65,20 +65,22 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
   Widget build(BuildContext context) {
     final now = DateTime.now();
     final timestamp = '${_formatWeekday(now)}, ${_formatDate(now)} at ${_formatTime(now)}';
+     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: colorScheme.surface,
+        surfaceTintColor: colorScheme.surface,
         elevation: 1,
-        foregroundColor: Colors.black87,
+        foregroundColor: colorScheme.surface,
         leading: const BackButton(),
         actions: [
           IconButton(
             icon: const Icon(Icons.check_rounded),
             onPressed: _isSaving ? null : _saveNote,
-            color: Theme.of(context).primaryColor,
+            color: colorScheme.primary,
           ),
         ],
       ),
@@ -88,7 +90,7 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(

@@ -1,3 +1,4 @@
+
 import 'package:drive_notes/models/note_file.dart';
 import 'package:drive_notes/providers/auth_state_provider.dart';
 import 'package:drive_notes/screens/create_note_screen.dart';
@@ -8,20 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-// import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // ✅ Step 1: Initialize Hive
   await Hive.initFlutter();
-
-  // ✅ Step 2: Register adapter
   Hive.registerAdapter(NoteFileAdapter());
-
-  // ✅ Step 3: Open Hive box
   await Hive.openBox<NoteFile>('notesBox');
-
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -31,7 +24,6 @@ final _router = GoRouter(
     GoRoute(
       path: '/',
       name: 'root',
-      redirect: (context, state) => null,
       builder: (context, state) => const _AuthGate(),
     ),
     GoRoute(
@@ -58,10 +50,14 @@ final _router = GoRouter(
   ],
 );
 
-var kLightColorScheme = ColorScheme.fromSeed(seedColor: Colors.blueAccent);
-var kDarkColorScheme = ColorScheme.fromSeed(
+final kLightColorScheme = ColorScheme.fromSeed(
+  seedColor: Colors.deepPurpleAccent,
+  brightness: Brightness.light,
+);
+
+final kDarkColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color.fromARGB(255, 100, 193, 255),
   brightness: Brightness.dark,
-  seedColor: const Color(0xFF64B5F6),
 );
 
 class MyApp extends ConsumerWidget {
@@ -74,37 +70,53 @@ class MyApp extends ConsumerWidget {
       routerConfig: _router,
       themeMode: ThemeMode.system,
       theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'Montserrat',
         colorScheme: kLightColorScheme,
+        scaffoldBackgroundColor: const Color(0xFFF7F6FB),
         appBarTheme: AppBarTheme(
           backgroundColor: kLightColorScheme.primary,
           foregroundColor: kLightColorScheme.onPrimary,
+          elevation: 4,
         ),
         cardTheme: CardTheme(
-          color: kLightColorScheme.secondaryContainer,
+          color: Colors.white,
+          shadowColor: Colors.deepPurple.shade100,
+          elevation: 5,
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kLightColorScheme.primary,
-            foregroundColor: kLightColorScheme.onPrimary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: kLightColorScheme.primary,
+          foregroundColor: kLightColorScheme.onPrimary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
       ),
-      darkTheme: ThemeData.dark().copyWith(
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'Montserrat',
         colorScheme: kDarkColorScheme,
+        scaffoldBackgroundColor: const Color(0xFF101417),
         appBarTheme: AppBarTheme(
-          backgroundColor: kDarkColorScheme.inversePrimary,
-          foregroundColor: kDarkColorScheme.onPrimary,
+          backgroundColor: kDarkColorScheme.surfaceVariant,
+          foregroundColor: kDarkColorScheme.onSurface,
+          elevation: 4,
         ),
         cardTheme: CardTheme(
-          color: kDarkColorScheme.secondaryContainer,
+          color: kDarkColorScheme.surfaceVariant,
+          shadowColor: Colors.black45,
+          elevation: 4,
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kDarkColorScheme.primary,
-            foregroundColor: kDarkColorScheme.onPrimary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: kDarkColorScheme.primary,
+          foregroundColor: kDarkColorScheme.onPrimary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
       ),
       title: 'Drive Notes',
@@ -118,12 +130,8 @@ class _AuthGate extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
-
     return authState.when(
-      data: (user) {
-        if (user == null) return const WelcomeScreen();
-        return const MainScreen();
-      },
+      data: (user) => user == null ? const WelcomeScreen() : const MainScreen(),
       loading: () => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
