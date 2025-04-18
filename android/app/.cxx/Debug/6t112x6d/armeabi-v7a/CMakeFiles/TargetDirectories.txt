@@ -1,0 +1,2 @@
+C:/Users/ssana/Documents/Drive-Notes/android/app/.cxx/Debug/6t112x6d/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/ssana/Documents/Drive-Notes/android/app/.cxx/Debug/6t112x6d/armeabi-v7a/CMakeFiles/rebuild_cache.dir
