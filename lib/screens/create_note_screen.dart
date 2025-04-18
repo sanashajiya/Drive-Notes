@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 class CreateNoteScreen extends ConsumerStatefulWidget {
   const CreateNoteScreen({super.key});
 
@@ -25,7 +26,6 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
 
     final driveService = ref.read(driveFilesProvider.notifier).driveService;
     await driveService.uploadNote(content, title);
-
     await ref.read(driveFilesProvider.notifier).refreshFiles();
 
     setState(() => _isSaving = false);
@@ -43,45 +43,74 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final timestamp = '${_formatWeekday(now)}, ${_formatDate(now)} at ${_formatTime(now)}';
+    final weekday = _formatWeekday(now);
+    final date = _formatDate(now);
+    final time = _formatTime(now);
 
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // or Theme.of(context).appBarTheme.backgroundColor,
-        foregroundColor: Theme.of(context).colorScheme.onSurface, // makes it adapt to light/dark theme
-        elevation: 0,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 1,
+        foregroundColor: Colors.black87,
         leading: const BackButton(),
         actions: [
           IconButton(
             key: const Key('saveButton'),
-            icon: const Icon(Icons.check),
+            icon: const Icon(Icons.check_rounded),
             onPressed: _isSaving ? null : _saveNote,
-            color: Theme.of(context).colorScheme.primary, // or any theme color
+            color: Theme.of(context).primaryColor,
           ),
         ],
       ),
-
-
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      body: Container(
+        margin: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Date & Time Header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '$date, $weekday',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey[600]),
+                ),
+                Text(
+                  time,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey[600]),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Title
             TextField(
               key: const Key('titleField'),
               controller: _titleController,
-              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               decoration: const InputDecoration(
                 hintText: 'Title',
                 border: InputBorder.none,
               ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              '$timestamp  |  ${_contentController.text.length} characters',
-              style: TextStyle(color: Colors.grey[600], fontSize: 13),
-            ),
-            const SizedBox(height: 8),
+
+            const Divider(),
+
+            // Content
             Expanded(
               child: TextField(
                 key: const Key('contentField'),
@@ -89,9 +118,9 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
                 maxLines: null,
                 expands: true,
                 keyboardType: TextInputType.multiline,
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, height: 1.5),
                 decoration: const InputDecoration(
-                  hintText: 'Start writing...',
+                  hintText: 'Start typing your note...',
                   border: InputBorder.none,
                 ),
                 onChanged: (_) => setState(() {}),
@@ -105,16 +134,24 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
 
   String _formatWeekday(DateTime dt) {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return days[dt.weekday % 7];
+    return days[dt.weekday % 7].toUpperCase();
   }
 
   String _formatDate(DateTime dt) {
-    return '${dt.month}/${dt.day}/${dt.year}';
+    return '${dt.day.toString().padLeft(2, '0')} ${_monthToString(dt.month)} ${dt.year}';
+  }
+
+  String _monthToString(int month) {
+    const months = [
+      '', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
+    return months[month];
   }
 
   String _formatTime(DateTime dt) {
     final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
-    final ampm = dt.hour >= 12 ? 'PM' : 'AM';
+    final ampm = dt.hour >= 12 ? 'pm' : 'am';
     final min = dt.minute.toString().padLeft(2, '0');
     return '$hour:$min $ampm';
   }
