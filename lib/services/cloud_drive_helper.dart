@@ -38,22 +38,6 @@ class DriveService {
     await driveApi.files.create(file, uploadMedia: media);
   }
 
-  // Future<List<NoteFile>> listNoteFiles() async {
-  //   final folderId = await _getOrCreateDriveNotesFolder();
-  //   final query =
-  //       "'$folderId' in parents and mimeType = 'text/plain' and trashed = false";
-  //   final result = await driveApi.files.list(
-  //     q: query,
-  //     spaces: 'drive',
-  //     $fields: 'files(id, name, modifiedTime)',
-  //   );
-
-  //   final files = result.files ?? [];
-  //   return files.map((f) => NoteFile(
-  //     id: f.id ?? '',
-  //     name: f.name ?? 'Untitled',
-  //   )).toList();
-  // }
 Future<List<NoteFile>> listNoteFiles() async {
   final folderId = await _getOrCreateDriveNotesFolder();
   final query = "'$folderId' in parents and mimeType = 'text/plain' and trashed = false";

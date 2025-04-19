@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:drive_notes/models/note_model.dart'; // Import your NoteFile model
+import 'package:drive_notes/models/note_model.dart'; 
 import 'package:drive_notes/providers/entry_state_notifier.dart';
 
 class NoteTile extends ConsumerWidget {

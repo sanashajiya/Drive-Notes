@@ -27,13 +27,11 @@ class GoogleAuthService {
       await _secureStorage.write(key: 'accessToken', value: auth.accessToken);
       await _secureStorage.write(key: 'idToken', value: auth.idToken);
 
-      // print("Access Token: ${auth.accessToken}");
 
       _client = _authenticatedClientFromAccessToken(auth.accessToken!);
 
       return account;
     } catch (error) {
-      // print("Sign in failed: $error");
       return null;
     }
   }
@@ -66,7 +64,6 @@ class GoogleAuthService {
     return accessToken != null;
   }
 
-  /// 🔥 NEW: Return a Dio client with bearer auth
   Future<Dio> getDioClient() async {
     final accessToken = await _secureStorage.read(key: 'accessToken');
     if (accessToken == null) {
