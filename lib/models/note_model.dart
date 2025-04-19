@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'note_file.g.dart';
+part 'note_model.g.dart';
 
 @HiveType(typeId: 0)
 @JsonSerializable()

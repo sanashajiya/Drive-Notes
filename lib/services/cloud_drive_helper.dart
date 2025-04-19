@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:googleapis/drive/v3.dart' as drive;
-import '../models/note_file.dart';
+import '../models/note_model.dart';
 
 class DriveService {
   final drive.DriveApi driveApi;

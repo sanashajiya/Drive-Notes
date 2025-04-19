@@ -1,5 +1,5 @@
-import 'package:drive_notes/models/note_file.dart';
-import 'package:drive_notes/screens/widgets/note_tile.dart';
+import 'package:drive_notes/models/note_model.dart';
+import 'package:drive_notes/screens/widgets/entry_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

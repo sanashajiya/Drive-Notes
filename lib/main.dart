@@ -1,10 +1,10 @@
 
-import 'package:drive_notes/models/note_file.dart';
+import 'package:drive_notes/models/note_model.dart';
 import 'package:drive_notes/providers/auth_state_provider.dart';
-import 'package:drive_notes/screens/create_note_screen.dart';
-import 'package:drive_notes/screens/edit_note_screen.dart';
+import 'package:drive_notes/screens/add_new_entry.dart';
+import 'package:drive_notes/screens/modify_entry_screen.dart';
 import 'package:drive_notes/screens/main_screen.dart';
-import 'package:drive_notes/screens/welcome_screen.dart';
+import 'package:drive_notes/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

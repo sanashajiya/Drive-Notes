@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../services/google_auth_service.dart';
-import 'google_auth_provider.dart';
+import '../services/auth_google_service.dart';
+import 'auth_google_provider.dart';
 
 class AuthState extends AsyncNotifier<GoogleSignInAccount?> {
   late final GoogleAuthService _authService;

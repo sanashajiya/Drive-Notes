@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import '../models/note_file.dart';
-import '../services/drive_service.dart';
+import '../models/note_model.dart';
+import '../services/cloud_drive_helper.dart';
 import 'auth_state_provider.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 
