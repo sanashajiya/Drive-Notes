@@ -1,142 +1,125 @@
-# Drive Notes
+# 📘 Drive Notes
 
-Drive Notes is a productivity-focused Flutter app that helps users effortlessly write, manage, and sync text notes to their personal *Google Drive*. The project follows clean architecture principles and uses **Riverpod** for state management, **GoRouter** for routing, **Hive** for offline storage, and the **Google Drive API** for cloud integration.
+Drive Notes is a lightweight and powerful Flutter app designed to help users write, manage, and sync text notes directly to their Google Drive. It follows clean architecture principles and uses **Riverpod** for state management, **GoRouter** for navigation, **Hive** for offline persistence, and **Google Drive API** for cloud integration.
 
 ---
 
 ## 🚀 Getting Started
 
 ### 1. 📂 Clone the Project
-To get a local copy up and running:
 ```bash
 git clone https://github.com/sanashajiya/Drive-Notes.git
-cd drive_notes
+cd drive-notes
 ```
 
-### 2. 📦 Install Packages
-Install all necessary dependencies:
+### 2. 📦 Install Dependencies
 ```bash
 flutter pub get
 ```
 
-### 3. 🔐 Google API Configuration
+### 3. 🔐 Configure Google API
 
-To enable integration with Google Drive:
+#### ✅ Step 1: Open Google Cloud Console
+- Go to [Google Cloud Console](https://console.cloud.google.com/)
+- Log in and create a new project
 
----
-
-#### ✅ Step 1: Access Google Cloud Console
-- Navigate to [Google Cloud Console](https://console.cloud.google.com/)
-- Sign in with your Google credentials
-
----
-
-#### ✅ Step 2: Initialize a New Project
-- Click the project selector at the top and choose *New Project*
-- Set your project name (e.g., `DriveNotes`)
-- Click *Create*
-
----
-
-#### ✅ Step 3: Activate Required APIs
+#### ✅ Step 2: Enable APIs
 - Go to *APIs & Services > Library*
-- Enable the following:
+- Enable:
   - Google Drive API
   - Google People API
 
----
+#### ✅ Step 3: Setup OAuth Consent Screen
+- Navigate to *OAuth consent screen*
+- Choose *External*, fill out app details
+- Click through and save
 
-#### ✅ Step 4: Setup OAuth Consent Screen
-- Navigate to *APIs & Services > OAuth consent screen*
-- Choose *External* > Hit *Create*
-- Provide:
-  - App name (e.g., DriveNotes)
-  - User support and developer email addresses
-- Click *Save and Continue* until completion
+#### ✅ Step 4: Create OAuth Credentials
+- Go to *Credentials > Create Credentials > OAuth client ID*
+- Choose **Android** and enter:
+  - Package name: `com.example.note_sync`
+  - SHA-1 fingerprint:
 
----
-
-#### ✅ Step 5: Generate OAuth Credentials for Android
-- Go to the *Credentials* section
-- Select *Create Credentials > OAuth client ID*
-- Choose *Android* and enter:
-  - Package name: `com.example.drive_notes`
-  - SHA-1 fingerprint (generate using the command below):
 ```bash
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
----
-
-#### ✅ Step 6: Add Test Accounts
-- Return to the *OAuth consent screen*
-- Scroll to the *Test users* section
-- Add the Gmail accounts you intend to test with
+#### ✅ Step 5: Add Test Users
+- Under *OAuth consent screen > Test users*, add Gmail addresses
 
 ---
 
-### 4. ▶️ Launching the Application
-Run the app on a connected device or emulator:
+### 4. ▶️ Run the App
 ```bash
 flutter run
 ```
 
 ---
 
-## ✨ Key Highlights
+## ✨ Features
 
-- 🔐 Sign in with Google (OAuth 2.0)
-- 📝 Create and modify notes, stored as `.txt` files on Drive
-- 📁 All data saved in a custom `DriveNotes` folder in your Google Drive
-- 🔄 Sync support with read, update, and delete capabilities
-- 📡 Offline-friendly interface powered by Hive
-- 🧱 Cleanly structured architecture using Riverpod and GoRouter
-
----
-
-## ⚠️ Caveats
-
-- Any edits made while offline require a manual refresh or re-login to sync with Drive
+- 🔐 Google Sign-In via OAuth
+- 📝 Create, edit, and delete `.txt` notes synced with Drive
+- ☁️ Custom `DriveNotes` folder in Drive
+- 🛜 Works offline with auto-sync when back online
+- 🧱 Follows Clean Architecture + Riverpod
 
 ---
 
-## 📁 Project Structure Overview
+## ❗ Known Limitations
 
-```
+### ⚠️ Offline Functionality
+- Only the **Main Screen** (list of notes) is available in offline mode  
+- **Create, edit, and delete** operations are **disabled** when offline  
+- Notes are visible offline **only if they were previously loaded while online**
+
+### 🔐 Google API Access
+- The app is restricted to **test users** added through the **Google Cloud Console**  
+
+
+---
+
+## 🧭 Project Structure
+
+```bash
 lib/
 │
-├── models/                  # Models like NoteFile
+├── models/                      # Data models
+│   ├── note_model.dart
+│   └── note_model.g.dart
 │
-├── providers/              # Riverpod state managers
+├── providers/                  # State management with Riverpod
+│   ├── auth_google_provider.dart
 │   ├── auth_state_provider.dart
-│   ├── file_state_notifier.dart
-│   └── google_auth_provider.dart
+│   └── entry_state_notifier.dart
 │
-├── screens/                # UI screens and widgets
-│   ├── create_note_screen.dart
-│   ├── edit_note_screen.dart
-│   ├── welcome_screen.dart
-│   └── widgets/
-│       └── note_tile.dart
+├── screens/                    # Screens and widgets
+│   ├── widgets/
+│   │   └── entry_card.dart
+│   ├── add_new_entry.dart
+│   ├── modify_entry_screen.dart
+│   ├── main_screen.dart
+│   └── intro_screen.dart
 │
-├── services/               # Backend services
-│   ├── google_auth_service.dart
-│   └── drive_service.dart
+├── services/                   # Business logic / integrations
+│   ├── auth_google_service.dart
+│   └── cloud_drive_helper.dart
 │
-└── main.dart               # Entry point of the app
+└── main.dart                   # App entry point
 ```
 
 ---
 
-## 🧪 Testing the App
+## 🧪 Testing
 
-Run Flutter widget tests using:
+Run basic tests with:
 ```bash
 flutter test
 ```
 
-✅ Example: `NoteTile` widget has been widget tested for UI and logic.
+Widget examples like `EntryCard` are tested for UI/logic integrity.
 
 ---
+
 
 
