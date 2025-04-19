@@ -8,8 +8,8 @@ Drive Notes is a lightweight and powerful Flutter app designed to help users wri
 
 ### 1. 📂 Clone the Project
 ```bash
-git clone https://github.com/your-username/NoteSync.git
-cd note_sync
+git clone https://github.com/sanashajiya/Drive-Notes.git
+cd drive-notes
 ```
 
 ### 2. 📦 Install Dependencies
