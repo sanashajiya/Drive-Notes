@@ -3,7 +3,6 @@ import 'package:drive_notes/screens/widgets/entry_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:googleapis/drive/v3.dart' as drive;
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
@@ -15,7 +14,7 @@ class MainScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Drive Notes"),
+        title: const Text("Smart Notes"),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: filesAsync.when(
@@ -24,7 +23,7 @@ class MainScreen extends ConsumerWidget {
         data: (files) {
           if (files.isEmpty) {
             return const Center(
-                child: Text("No notes found in DriveNotes folder."));
+                child: Text("DriveNotes folder is currently empty."));
           }
 
           return AnimatedSwitcher(

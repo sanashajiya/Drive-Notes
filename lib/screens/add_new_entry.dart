@@ -32,7 +32,7 @@ class _CreateNoteScreenState extends ConsumerState<CreateNoteScreen> {
     HapticFeedback.mediumImpact();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Note saved successfully')),
+      const SnackBar(content: Text('Successfully added to your notes')),
     );
 
     Future.delayed(const Duration(milliseconds: 300), () {

@@ -51,12 +51,12 @@ final _router = GoRouter(
 );
 
 final kLightColorScheme = ColorScheme.fromSeed(
-  seedColor: Colors.deepPurpleAccent,
+  seedColor: 	Color(0xFF6E74E9),
   brightness: Brightness.light,
 );
 
 final kDarkColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 100, 193, 255),
+  seedColor: Color(0xFF7C4DFF),
   brightness: Brightness.dark,
 );
 
@@ -95,30 +95,37 @@ class MyApp extends ConsumerWidget {
         ),
       ),
       darkTheme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Montserrat',
-        colorScheme: kDarkColorScheme,
-        scaffoldBackgroundColor: const Color(0xFF101417),
-        appBarTheme: AppBarTheme(
-          backgroundColor: kDarkColorScheme.surfaceVariant,
-          foregroundColor: kDarkColorScheme.onSurface,
-          elevation: 4,
-        ),
-        cardTheme: CardTheme(
-          color: kDarkColorScheme.surfaceVariant,
-          shadowColor: Colors.black45,
-          elevation: 4,
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: kDarkColorScheme.primary,
-          foregroundColor: kDarkColorScheme.onPrimary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      useMaterial3: true,
+      fontFamily: 'Montserrat',
+      colorScheme: kDarkColorScheme,
+      scaffoldBackgroundColor: const Color(0xFF0D1117), // deep background
+      appBarTheme: AppBarTheme(
+        backgroundColor: kDarkColorScheme.primary.withOpacity(0.1),
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
+      cardTheme: CardTheme(
+        color: const Color(0xFF1C1F26), // darker but defined card
+        shadowColor: Colors.black12,
+        elevation: 3,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
+      listTileTheme: ListTileThemeData(
+        iconColor: kDarkColorScheme.primary,
+        textColor: Colors.white,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: kDarkColorScheme.primary,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+    ),
+
       title: 'Drive Notes',
     );
   }

@@ -53,7 +53,7 @@ class _EditNoteScreenState extends ConsumerState<EditNoteScreen> {
     HapticFeedback.mediumImpact();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Note updated')),
+      const SnackBar(content: Text('Note modified successfully.')),
     );
 
     Future.delayed(const Duration(milliseconds: 400), () {

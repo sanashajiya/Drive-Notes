@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../providers/auth_state_provider.dart';
 import 'main_screen.dart';
 
@@ -17,7 +18,7 @@ class WelcomeScreen extends ConsumerWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF5B86E5), Color(0xFF36D1DC)],
+            colors: [Color(0xFF4e54c8), Color(0xFF8f94fb)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -29,14 +30,18 @@ class WelcomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 60),
-                Icon(
-                  Icons.cloud_circle_outlined,
-                  size: 100,
-                  color: Colors.white,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.easeOutBack,
+                  child: const Icon(
+                    Icons.cloud_circle_outlined,
+                    size: 110,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(height: 30),
                 const Text(
-                  'Welcome to NoteVault',
+                  'Smart Cloud Notes',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,
@@ -44,13 +49,22 @@ class WelcomeScreen extends ConsumerWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
+
                 const SizedBox(height: 10),
-                const Text(
-                  'Your smart cloud notebook Backed by Google Drive',
-                  style: TextStyle(
-                    color: Colors.white70,
+                Text(
+                  'Your smart cloud notebook',
+                  style: GoogleFonts.raleway(
+                    color: Colors.white.withOpacity(0.85),
                     fontSize: 16,
-                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'Backed by Google Drive',
+                  style: GoogleFonts.raleway(
+                    color: Colors.white70,
+                    fontSize: 14,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -84,17 +98,21 @@ class WelcomeScreen extends ConsumerWidget {
                     height: 24,
                     width: 24,
                   ),
-                  label: const Text(
+                  label: Text(
                     'Sign in with Google',
-                    style: TextStyle(fontSize: 16),
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black87,
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                    elevation: 4,
+                    elevation: 6,
+                    shadowColor: Colors.black26,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(16),
                       side: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
